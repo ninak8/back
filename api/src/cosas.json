@@ -1,0 +1,36 @@
+[
+  {
+    "id": "1",
+    "name": "remera",
+    "price": "7.000",
+    "stock": "18",
+    "brand": "adidas",
+    "detail": "asdfghjkl ghsvcdc 12 ejnfjd la de tu mama",
+    "description": "ANDA LA COSA POR FAVOR",
+    "score": "5",
+    "category": "ropa",
+    "state": "nuevo",
+    "genre": "hombre",
+    "image": "https://img.freepik.com/vector-premium/arte-ilustracion-deporte-icono-logotipo-diseno-logotipo-balon-simbolo-conjunto-futbol-futbol-efecto_678437-163.jpg?w=2000",
+    "tags": [],
+    "sizes": ["L", "M", "S"],
+    "colors": []
+  },
+  {
+    "id": "2",
+    "name": "remera",
+    "price": "7.000",
+    "stock": "18",
+    "brand": "adidas",
+    "detail": "asdfghjkl ghsvcdc 12 ejnfjd la de tu mama",
+    "description": "ANDA LA COSA POR FAVOR",
+    "score": "5",
+    "category": "ropa",
+    "state": "nuevo",
+    "genre": "hombre",
+    "image": "https://img.freepik.com/vector-premium/arte-ilustracion-deporte-icono-logotipo-diseno-logotipo-balon-simbolo-conjunto-futbol-futbol-efecto_678437-163.jpg?w=2000",
+    "tags": [],
+    "sizes": ["L", "M", "S"],
+    "colors": []
+  }
+]
