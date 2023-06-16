@@ -1,4 +1,4 @@
-const { Product, Tag, Color, Size } = require("../db");
+const { Product, Tag, Color, Size, Op } = require("../db");
 const json = require("../cosas.json");
 
 const clearGet = (arr) => {
@@ -92,34 +92,18 @@ const getProductById = async (id) => {
       },
     ],
   });
-  // const hasproduct = await Product.findOne({
-  //   where: {
-  //     id: id,
-  //   },
-  //   include: [
-  //     {
-  //       model: Tag,
-  //       attributes: ["name"],
-  //     },
-  //     {
-  //       model: Size,
-  //       attributes: ["size"],
-  //     },
-  //     {
-  //       model: Color,
-  //       attributes: ["name"],
-  //     },
-  //   ],
-  // });
-  // return hasproduct;
   const clearDB = clearGet(productById);
   return clearDB;
 };
 
-// findall cuando los nombres de los registros sean iguales a "product"
 const getProductByName = async (product) => {
   const productByName = await Product.findAll({
-    where: { name: product },
+    where: {
+      [Op.or]: [
+        { name: { [Op.iLike]: `%${product}%` } },
+        { category: { [Op.like]: `%${product}` } },
+      ],
+    },
     include: [
       {
         model: Tag,
