@@ -101,7 +101,7 @@ const getProductByName = async (product) => {
     where: {
       [Op.or]: [
         { name: { [Op.iLike]: `%${product}%` } },
-        { category: { [Op.like]: `%${product}%` } },
+        { category: { [Op.iLike]: `%${product}` } },
       ],
     },
     include: [
