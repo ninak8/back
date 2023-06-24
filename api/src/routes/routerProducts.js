@@ -81,8 +81,21 @@ router.get("/", async (req, res) => {
 });
 
 router.patch("/", async (req, res) => {
-  const { name, id, stock, detail, description, price, brand, score, genre } =
-    req.body;
+  const {
+    name,
+    id,
+    stock,
+    detail,
+    description,
+    price,
+    brand,
+    score,
+    genre,
+    image,
+    sizes,
+    tags,
+    colors,
+  } = req.body;
   try {
     const result = await patchProductById(
       id,
@@ -93,8 +106,17 @@ router.patch("/", async (req, res) => {
       price,
       brand,
       score,
-      genre
+      genre,
+      //
+      image
+      // sizes,
+      // tags,
+      // colors
     );
+    // addTemperaments(temperament)
+    result.addSizes(sizes);
+    result.addTags(tags); //array de IDs
+    result.addColors(colors);
     return res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ error: error.message });

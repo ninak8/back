@@ -134,7 +134,8 @@ const patchProductById = async (
   category,
   genre,
   brand,
-  score
+  score,
+  image
 ) => {
   const product = await Product.findByPk(id);
   const muteProduct = await product.update({
@@ -148,6 +149,7 @@ const patchProductById = async (
     price: price,
     brand: brand,
     score: score,
+    image,
   });
   return muteProduct;
 };
