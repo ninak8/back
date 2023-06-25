@@ -8,6 +8,15 @@ const getAllTags = async () => {
   const allTags = await Tag.findAll();
   return allTags;
 };
+
+const changeTags = async (id, name) => {
+  const tagById = await Tag.findByPk(id);
+  const changeTag = await tagById.update({
+    name: name,
+  });
+  return changeTag;
+};
+
 const deleteTag = async (id) => {
   const removeTag = await Tag.findByPk(id);
   await removeTag.destroy();
@@ -17,5 +26,6 @@ const deleteTag = async (id) => {
 module.exports = {
   createTag,
   getAllTags,
+  changeTags,
   deleteTag,
 };

@@ -13,15 +13,13 @@ router.get("/:category", async (req, res) => {
   const { q } = req.query;
   try {
     let result;
-    // if (
-    //   (category === "accesorio" && q === "fútbol") ||
-    //   q === "vóley" ||
-    //   q === "básquet"
-    // ) {
-    //   console.log("vamooooooooo");
-    //   result = await filterAccessories(category, q);
-    // }
-    if (category && q) {
+    if (
+      (category === "accesorio" && q === "fútbol") ||
+      q === "vóley" ||
+      q === "básquet"
+    ) {
+      result = await filterAccessories(category, q);
+    } else if (category && q) {
       result = await filteredByCategoryAndName(category, q);
     } else {
       result = await filterByCategory(category);

@@ -62,7 +62,10 @@ const filterAccessories = async (category, q) => {
     ],
   });
   const clearProducts = clearDB(products);
-  return clearProducts;
+
+  const selectedTags = clearProducts.filter((elem) => elem.tags.includes(q));
+  console.log(selectedTags.length);
+  return selectedTags;
 };
 module.exports = {
   filterByCategory,

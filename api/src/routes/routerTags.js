@@ -1,6 +1,11 @@
 const { Router } = require("express");
 const router = Router();
-const { createTag, getAllTags, deleteTag } = require("../controllers/tags");
+const {
+  createTag,
+  getAllTags,
+  deleteTag,
+  changeTags,
+} = require("../controllers/tags");
 
 //? POST GET DELETE
 router.post("/", async (req, res) => {
@@ -18,6 +23,16 @@ router.get("/", async (req, res) => {
     const tags = await getAllTags();
     if (!tags.length) res.status(400).send("tags not found");
     else res.status(200).json(tags);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.patch("/", async (req, res) => {
+  const { id, name } = req.body;
+  try {
+    const patchTag = await changeTags(id, name);
+    return res.status(200).json(patchTag);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
