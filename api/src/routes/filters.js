@@ -5,6 +5,7 @@ const {
   filterByCategory,
   filterByScore,
   filteredByCategoryAndName,
+  filterAccessories,
 } = require("../controllers/filters");
 
 router.get("/:category", async (req, res) => {
@@ -12,6 +13,14 @@ router.get("/:category", async (req, res) => {
   const { q } = req.query;
   try {
     let result;
+    // if (
+    //   (category === "accesorio" && q === "fútbol") ||
+    //   q === "vóley" ||
+    //   q === "básquet"
+    // ) {
+    //   console.log("vamooooooooo");
+    //   result = await filterAccessories(category, q);
+    // }
     if (category && q) {
       result = await filteredByCategoryAndName(category, q);
     } else {
