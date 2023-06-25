@@ -14,7 +14,7 @@ router.get("/:category", async (req, res) => {
   try {
     let result;
     if (
-      (category === "accesorio" && q === "fútbol") ||
+      (category === "accesorio" && q === "futbol") ||
       q === "vóley" ||
       q === "básquet"
     ) {
