@@ -22,6 +22,29 @@ const clearDB = (array) => {
   return clear;
 };
 
+const clearGet = (arr) => {
+  const clear = arr.map((elem) => {
+    return {
+      id: elem.id,
+      name: elem.name,
+      price: elem.price,
+      stock: elem.stock,
+      brand: elem.brand,
+      detail: elem.detail,
+      description: elem.description,
+      score: elem.score,
+      category: elem.category,
+      state: elem.state,
+      genre: elem.genre,
+      image: elem.image,
+      tags: elem.Tags?.map((elem) => elem.name),
+      sizes: elem.Sizes?.map((elem) => elem.size),
+      colors: elem.Colors?.map((elem) => elem.name),
+    };
+  });
+  return clear;
+};
+
 const filterByCategory = async (category) => {
   const products = await Product.findAll({
     where: {
@@ -39,11 +62,31 @@ const filterByScore = async () => {
 const filteredByCategoryAndName = async (category, name) => {
   const products = await Product.findAll({
     where: {
-      [Op.and]: [{ category: category }, { name: name }],
+      [Op.and]: [
+        { category: { [Op.iLike]: `%${category}%` } },
+        { name: { [Op.iLike]: `%${name}%` } },
+      ],
     },
+    include: [
+      {
+        model: Tag,
+        attributes: ["name"],
+      },
+      {
+        model: Size,
+        attributes: ["size"],
+      },
+      {
+        model: Color,
+        attributes: ["name"],
+      },
+    ],
   });
   // console.log(products);
-  return products;
+  // console.log(productsClear);
+  // return products;
+  const productsClear = clearGet(products);
+  return productsClear;
 };
 
 const filterAccessories = async (category, q) => {
@@ -55,9 +98,6 @@ const filterAccessories = async (category, q) => {
       {
         model: Tag,
         attributes: ["name"],
-        through: {
-          attributes: [],
-        },
       },
     ],
   });

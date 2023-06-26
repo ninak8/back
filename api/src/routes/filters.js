@@ -14,14 +14,24 @@ router.get("/:category", async (req, res) => {
   try {
     let result;
     if (
-      (category === "accesorio" && q === "fútbol") ||
-      q === "vóley" ||
-      q === "básquet"
+      q === "futbol" ||
+      q === "voley" ||
+      q === "basquet" ||
+      q === "rugby" ||
+      q === "padel" ||
+      q === "tenis" ||
+      q === "hokey" ||
+      q === "boca" ||
+      q === "river" ||
+      q === "seleccion"
     ) {
+      // console.log("AAAAAAAAAAAAAA");
       result = await filterAccessories(category, q);
     } else if (category && q) {
+      // console.log("BBBBBBBBBBBBBBB");ç
       result = await filteredByCategoryAndName(category, q);
     } else {
+      // console.log("CCCCCCCCCCCCCCC");
       result = await filterByCategory(category);
     }
     res.status(200).json(result);
