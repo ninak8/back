@@ -77,9 +77,13 @@ const filterByCategory = async (category) => {
     console.log(clearSport.length);
     return clearSport;
   } else {
+    // console.log(category);
     const products = await Product.findAll({
       where: {
-        category: category,
+        [Op.or]: [
+          { name: { [Op.iLike]: `%${category}%` } },
+          { category: { [Op.iLike]: `%${category}%` } },
+        ],
       },
     });
     return products;
