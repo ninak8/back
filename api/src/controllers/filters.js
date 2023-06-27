@@ -1,27 +1,6 @@
 const { Product, Tag, Size, Color } = require("../db");
 const { Op } = require("sequelize");
 
-const clearDB = (array) => {
-  const clear = array.map((elem) => {
-    return {
-      id: elem.id,
-      name: elem.name,
-      price: elem.price,
-      stock: elem.stock,
-      brand: elem.brand,
-      detail: elem.detail,
-      description: elem.description,
-      score: elem.score,
-      genre: elem.genre,
-      category: elem.category,
-      state: elem.state,
-      image: elem.image,
-      tags: elem.Tags.map((elem) => elem.name),
-    };
-  });
-  return clear;
-};
-
 const clearGet = (arr) => {
   const clear = arr.map((elem) => {
     return {
@@ -51,8 +30,23 @@ const filterByCategory = async (category) => {
       where: {
         state: "nuevo",
       },
+      include: [
+        {
+          model: Tag,
+          attributes: ["name"],
+        },
+        {
+          model: Size,
+          attributes: ["size"],
+        },
+        {
+          model: Color,
+          attributes: ["name"],
+        },
+      ],
     });
-    return productsNew;
+    const clearNewPorduct = clearGet(productsNew);
+    return clearNewPorduct;
   } else if (category === "deporte") {
     const productsSports = await Product.findAll({
       where: {
@@ -74,7 +68,6 @@ const filterByCategory = async (category) => {
       ],
     });
     const clearSport = clearGet(productsSports);
-    console.log(clearSport.length);
     return clearSport;
   } else {
     // console.log(category);
@@ -85,8 +78,23 @@ const filterByCategory = async (category) => {
           { category: { [Op.iLike]: `%${category}%` } },
         ],
       },
+      include: [
+        {
+          model: Tag,
+          attributes: ["name"],
+        },
+        {
+          model: Size,
+          attributes: ["size"],
+        },
+        {
+          model: Color,
+          attributes: ["name"],
+        },
+      ],
     });
-    return products;
+    const clearProducts = clearGet(products);
+    return clearProducts;
   }
 };
 
@@ -96,6 +104,32 @@ const filterByScore = async () => {
 };
 
 const filteredByCategoryAndName = async (category, name) => {
+  if (category === "deporte") {
+    const productsSports = await Product.findAll({
+      where: {
+        [Op.and]: [
+          { stock: { [Op.iLike]: `%${category}%` } },
+          { name: { [Op.iLike]: `%${name}%` } },
+        ],
+      },
+      include: [
+        {
+          model: Tag,
+          attributes: ["name"],
+        },
+        {
+          model: Size,
+          attributes: ["size"],
+        },
+        {
+          model: Color,
+          attributes: ["name"],
+        },
+      ],
+    });
+    const clearProduct = clearGet(productsSports);
+    return clearProduct;
+  }
   const products = await Product.findAll({
     where: {
       [Op.and]: [
@@ -133,11 +167,18 @@ const filterAccessories = async (category, q) => {
           model: Tag,
           attributes: ["name"],
         },
+        {
+          model: Size,
+          attributes: ["size"],
+        },
+        {
+          model: Color,
+          attributes: ["name"],
+        },
       ],
     });
 
-    const clearProducts = clearDB(productSport);
-
+    const clearProducts = clearGet(productSport);
     const selectedTags = clearProducts.filter((elem) => elem.tags.includes(q));
     return selectedTags;
   } else {
@@ -150,9 +191,17 @@ const filterAccessories = async (category, q) => {
           model: Tag,
           attributes: ["name"],
         },
+        {
+          model: Size,
+          attributes: ["size"],
+        },
+        {
+          model: Color,
+          attributes: ["name"],
+        },
       ],
     });
-    const clearProducts = clearDB(products);
+    const clearProducts = clearGet(products);
 
     const selectedTags = clearProducts.filter((elem) => elem.tags.includes(q));
     return selectedTags;

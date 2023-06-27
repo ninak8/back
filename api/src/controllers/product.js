@@ -16,9 +16,9 @@ const clearGet = (arr) => {
       state: elem.state,
       genre: elem.genre,
       image: elem.image,
-      tags: elem.Tags.map((elem) => elem.name),
-      sizes: elem.Sizes.map((elem) => elem.size),
-      colors: elem.Colors.map((elem) => elem.name),
+      tags: elem.Tags?.map((elem) => elem.name),
+      sizes: elem.Sizes?.map((elem) => elem.size),
+      colors: elem.Colors?.map((elem) => elem.name),
     };
   });
   return clear;
