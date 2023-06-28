@@ -135,6 +135,8 @@ const getProductByName = async (product) => {
       [Op.or]: [
         { name: { [Op.iLike]: `%${product}%` } },
         { category: { [Op.iLike]: `%${product}` } },
+        { stock: { [Op.iLike]: `%${product}` } },
+        { genre: { [Op.iLike]: `%${product}` } },
       ],
     },
     include: [
