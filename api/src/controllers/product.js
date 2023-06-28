@@ -97,6 +97,39 @@ const getProductById = async (id) => {
 };
 
 const getProductByName = async (product) => {
+  if (
+    product === "futbol" ||
+    product === "voley" ||
+    product === "basquet" ||
+    product === "rugby" ||
+    product === "padel" ||
+    product === "tenis" ||
+    product === "hokey" ||
+    product === "boca" ||
+    product === "river" ||
+    product === "seleccion"
+  ) {
+    const productByTag = await Product.findAll({
+      include: [
+        {
+          model: Tag,
+          attributes: ["name"],
+        },
+        {
+          model: Size,
+          attributes: ["size"],
+        },
+        {
+          model: Color,
+          attributes: ["name"],
+        },
+      ],
+    });
+    const clearDB = clearGet(productByTag);
+    const selectedTags = clearDB.filter((elem) => elem.tags.includes(product));
+    // console.log("yesyesyes");
+    return selectedTags;
+  }
   const productByName = await Product.findAll({
     where: {
       [Op.or]: [
