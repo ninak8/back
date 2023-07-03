@@ -40,15 +40,6 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Color, Product, Tag, Size } = sequelize.models;
 
-// Product.hasMany(Tag);
-// Tag.belongsTo(Product);
-
-// Product.hasMany(Color);
-// Color.belongsTo(Product);
-
-// Product.hasMany(Size);
-// Size.belongsTo(Product);
-
 Product.belongsToMany(Tag, { through: "Products_Tags" });
 Tag.belongsToMany(Product, { through: "Products_Tags" });
 

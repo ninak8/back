@@ -159,9 +159,9 @@ const filteredByCategoryAndName = async (category, name) => {
 const filterAccessories = async (category, q) => {
   if (category === "deporte") {
     const productSport = await Product.findAll({
-      where: {
-        stock: category,
-      },
+      // where: {
+      //   stock: category,
+      // },
       include: [
         {
           model: Tag,
