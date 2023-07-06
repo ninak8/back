@@ -1,5 +1,4 @@
 const { Product, Tag, Color, Size, Op } = require("../db");
-const json = require("../cosas.json");
 
 const clearGet = (arr) => {
   const clear = arr.map((elem) => {
