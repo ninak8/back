@@ -6,9 +6,8 @@ const createTag = async (name) => {
 };
 const getAllTags = async () => {
   const allTags = await Tag.findAll();
-
-  const tags = allTags.map((tag) => tag.name);
-  return tags;
+  // const tags = allTags.map((tag) => tag.name);
+  return allTags;
 };
 
 const changeTags = async (id, name) => {
