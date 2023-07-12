@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "Images",
+    "Faqs",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -12,13 +12,16 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+
+      question: {
         type: DataTypes.STRING,
-        // allowNull: false,
+        allowNull: false,
+        unique: true,
       },
-      image: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        // allowNull: false,
+      response: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
       },
     },
     {
