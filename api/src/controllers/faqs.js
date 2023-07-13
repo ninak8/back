@@ -6,11 +6,17 @@ const createFAQ = async (question, response) => {
 };
 
 const allFaqs = async () => {
-  const allfaqs = await Faqs.findAll();
-  return allfaqs;
-};
+    const allfaqs = await Faqs.findAll();
+    return allfaqs;
+  },
+  removeFaqs = async (id) => {
+    const removefaqByID = await Faqs.findByPk(id);
+    await removefaqByID.destroy();
+    return removefaqByID;
+  };
 
 module.exports = {
   createFAQ,
   allFaqs,
+  removeFaqs,
 };

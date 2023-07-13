@@ -4,7 +4,9 @@ const {
   getImagesPC,
   getImagesTB,
   getImageMV,
+  getAllImges,
   add,
+  removeImages,
 } = require("../controllers/images");
 
 router.post("/", async (req, res) => {
@@ -27,12 +29,25 @@ router.get("/", async (req, res) => {
       images = await getImagesPC();
     } else if (q === "TB") {
       images = await getImagesTB();
-    } else {
+    } else if (q === "MV") {
       images = await getImageMV();
+    } else {
+      images = await getAllImges();
     }
     res.status(200).json(images);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const removeImg = await removeImages(id);
+    res.status(200).json(removeImg);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = router;

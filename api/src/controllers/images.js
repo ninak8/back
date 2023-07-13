@@ -1,14 +1,14 @@
-const { Images } = require("../db");
+const { Imgs } = require("../db");
 
 const add = async (image, name) => {
-  const idnei = await Images.create({ image, name });
-  return idnei;
+  const newImage = await Imgs.create({ image, name });
+  return newImage;
 };
 
 // <---->
 
 const getImagesPC = async () => {
-  const imagesPC = await Images.findAll({
+  const imagesPC = await Imgs.findAll({
     where: {
       name: "PC",
     },
@@ -17,7 +17,7 @@ const getImagesPC = async () => {
 };
 
 const getImagesTB = async () => {
-    const imageTablet = await Images.findAll({
+    const imageTablet = await Imgs.findAll({
       where: {
         name: "TB",
       },
@@ -25,12 +25,21 @@ const getImagesTB = async () => {
     return imageTablet;
   },
   getImageMV = async () => {
-    const imageMovil = await Images.findAll({
+    const imageMovil = await Imgs.findAll({
       where: {
         name: "MV",
       },
     });
     return imageMovil;
+  },
+  removeImages = async (id) => {
+    const removeImgByID = await Imgs.findByPk(id);
+    await removeImgByID.destroy();
+    return removeImgByID;
+  },
+  getAllImges = async () => {
+    const allImages = await Imgs.findAll();
+    return allImages;
   };
 
 module.exports = {
@@ -38,4 +47,6 @@ module.exports = {
   getImagesPC,
   getImagesTB,
   getImageMV,
+  getAllImges,
+  removeImages,
 };
