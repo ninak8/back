@@ -7,6 +7,7 @@ const routerSizes = require("./routerSizes");
 const routerFilters = require("./filters");
 const routerFaqs = require("./faqs");
 const routerImages = require("./images");
+const routerUser = require("./user");
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use("/sizes", routerSizes);
 
 router.use("/faqs", routerFaqs);
 router.use("/images", routerImages);
+router.use("/user", routerUser);
 
 module.exports = router;
