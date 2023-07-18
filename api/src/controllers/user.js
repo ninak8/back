@@ -1,14 +1,29 @@
-const { User } = require("../db");
+const { User, Op } = require("../db");
+
+const clearUser = (arr) => {
+  const clear = arr.map((elem) => {
+    return {
+      id: elem.id,
+      name: elem.name,
+      secret: elem.secret,
+      email: elem.email,
+      profile_image: elem.profile_image,
+      account_name: elem.account_name,
+    };
+  });
+  return clear;
+};
 
 const createUser = async (name, secret, email, profile_image, account_name) => {
-    const newUser = await User.create(
+    const newUser = await User.create({
       name,
       secret,
       email,
       profile_image,
-      account_name
-    );
-    return newUser;
+      account_name,
+    });
+    const cleanUser = clearUser(newUser);
+    return cleanUser;
   },
   getUserById = async (id) => {
     const user = User.findByPk(id);
@@ -22,6 +37,14 @@ const createUser = async (name, secret, email, profile_image, account_name) => {
     const user = await User.findByPk(id);
     await user.destroy();
     return user;
+  },
+  checkUser = async (secret, email) => {
+    const user = await User.findAll({
+      where: {
+        [Op.and]: [{ email: email }, { secret: secret }],
+      },
+    });
+    return user;
   };
 
 module.exports = {
@@ -29,4 +52,5 @@ module.exports = {
   getUserById,
   getUsers,
   removeUsers,
+  checkUser,
 };

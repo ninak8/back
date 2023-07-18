@@ -4,10 +4,10 @@ const routerProducts = require("./routerProducts");
 const routerColors = require("./routerColors");
 const routerTags = require("./routerTags");
 const routerSizes = require("./routerSizes");
-const routerFilters = require("./filters");
-const routerFaqs = require("./faqs");
-const routerImages = require("./images");
-const routerUser = require("./user");
+const routerFilters = require("./routerFilters");
+const routerFaqs = require("./routerFaqs");
+const routerImages = require("./routerImages");
+const routerUser = require("./routerUser");
 
 const router = Router();
 

@@ -11,11 +11,11 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       name: {
-        type: DataTypes.STRING(70),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       account_name: {
-        type: DataTypes.STRING(35),
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
@@ -33,8 +33,6 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
     },
-    {
-      timestamps: true,
-    }
+    { timestamps: true, updatedAt: false, createdAt: false }
   );
 };

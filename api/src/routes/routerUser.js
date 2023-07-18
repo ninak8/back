@@ -5,10 +5,14 @@ const {
   getUserById,
   getUsers,
   removeUsers,
+  checkUser,
 } = require("../controllers/user");
-const { validateUser } = require("../middlewares/user");
+const {
+  validateUser,
+  validatePostUser,
+} = require("../middlewares/middlewareUser");
 
-router.post("/", async (req, res) => {
+router.post("/", validatePostUser, async (req, res) => {
   const { name, secret, email, profile_image, account_name } = req.body;
   try {
     const newUser = await createUser(
@@ -19,6 +23,20 @@ router.post("/", async (req, res) => {
       account_name
     );
     res.status(200).json(newUser);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get("/:secret/:email", async (req, res) => {
+  const { secret, email } = req.params;
+  try {
+    if (secret && email) {
+      const access = await checkUser(secret, email);
+      access.length
+        ? res.status(200).send(access)
+        : res.status(400).send("Usuario Invalido");
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
