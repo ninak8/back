@@ -46,7 +46,8 @@ router.get("/", async (req, res) => {
   const { q } = req.query;
   let user;
   try {
-    if (!q) user = await getUserById(q);
+    // console.log(q);
+    if (q) user = await getUserById(q);
     user = await getUsers();
     res.status(200).json(user);
   } catch (error) {

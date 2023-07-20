@@ -1,18 +1,18 @@
 const { User, Op } = require("../db");
 
-const clearUser = (arr) => {
-  const clear = arr.map((elem) => {
-    return {
-      id: elem.id,
-      name: elem.name,
-      secret: elem.secret,
-      email: elem.email,
-      profile_image: elem.profile_image,
-      account_name: elem.account_name,
-    };
-  });
-  return clear;
-};
+// const clearUser = (arr) => {
+//   const clear = arr.map((elem) => {
+//     return {
+//       id: elem.id,
+//       name: elem.name,
+//       secret: elem.secret,
+//       email: elem.email,
+//       profile_image: elem.profile_image,
+//       account_name: elem.account_name,
+//     };
+//   });
+//   return clear;
+// };
 
 const createUser = async (name, secret, email, profile_image, account_name) => {
     const newUser = await User.create({
@@ -22,11 +22,13 @@ const createUser = async (name, secret, email, profile_image, account_name) => {
       profile_image,
       account_name,
     });
-    const cleanUser = clearUser(newUser);
-    return cleanUser;
+    // const cleanUser = clearUser(newUser);
+    // return cleanUser;
+    return newUser;
   },
   getUserById = async (id) => {
-    const user = User.findByPk(id);
+    const user = await User.findByPk(id);
+    // console.log(user);
     return user;
   },
   getUsers = async () => {
