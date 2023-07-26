@@ -9,6 +9,8 @@ const routerFaqs = require("./routerFaqs");
 const routerImages = require("./routerImages");
 const routerUser = require("./routerUser");
 
+const processImage = require("../utils/processIMG");
+
 const router = Router();
 
 // Configurar los routers
@@ -22,5 +24,7 @@ router.use("/sizes", routerSizes);
 router.use("/faqs", routerFaqs);
 router.use("/images", routerImages);
 router.use("/user", routerUser);
+//* Images Processor
+router.use("/processImage/post", processImage);
 
 module.exports = router;
