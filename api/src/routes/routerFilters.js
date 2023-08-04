@@ -5,6 +5,7 @@ const {
   filterByCategory,
   filterByScore,
   filteredByCategoryAndName,
+  getLeakedInformation,
   filterAccessories,
 } = require("../controllers/filters");
 
@@ -25,13 +26,10 @@ router.get("/:category", async (req, res) => {
       q === "river" ||
       q === "seleccion"
     ) {
-      // console.log("AAAAAAAAAAAAAA");
       result = await filterAccessories(category, q);
     } else if (category && q) {
-      // console.log("BBBBBBBBBBBBBBB");ç
       result = await filteredByCategoryAndName(category, q);
     } else {
-      // console.log("CCCCCCCCCCCCCCC");
       result = await filterByCategory(category);
     }
     res.status(200).json(result);
@@ -41,7 +39,20 @@ router.get("/:category", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  const { size, color, sport, category, genre, name } = req.query;
   try {
+    if (size || color || sport || category || genre || name) {
+      console.log("entre");
+      const leakedInformation = await getLeakedInformation(
+        size,
+        color,
+        sport,
+        category,
+        genre,
+        name
+      );
+      // console.log(leakedInformation, "-------");
+    }
     const score = await filterByScore();
     res.status(200).json(score);
   } catch (error) {

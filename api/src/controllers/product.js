@@ -126,8 +126,67 @@ const getProductByName = async (product) => {
     });
     const clearDB = clearGet(productByTag);
     const selectedTags = clearDB.filter((elem) => elem.tags.includes(product));
-    // console.log("yesyesyes");
     return selectedTags;
+  } else if (
+    product === "blanco" ||
+    product === "negro" ||
+    product === "gris" ||
+    product === "rosa" ||
+    product === "rojo" ||
+    product === "azul" ||
+    product === "amarillo" ||
+    product === "naranja" ||
+    product === "verde"
+  ) {
+    const productByTag = await Product.findAll({
+      include: [
+        {
+          model: Tag,
+          attributes: ["name"],
+        },
+        {
+          model: Size,
+          attributes: ["size"],
+        },
+        {
+          model: Color,
+          attributes: ["name"],
+        },
+      ],
+    });
+    const clearDB = clearGet(productByTag);
+    const selectedColors = clearDB.filter((elem) =>
+      elem.colors.includes(product)
+    );
+    return selectedColors;
+  } else if (
+    product === "S" ||
+    product === "M" ||
+    product === "L" ||
+    product === "XL" ||
+    product === "XXL"
+  ) {
+    const productByTag = await Product.findAll({
+      include: [
+        {
+          model: Tag,
+          attributes: ["name"],
+        },
+        {
+          model: Size,
+          attributes: ["size"],
+        },
+        {
+          model: Color,
+          attributes: ["name"],
+        },
+      ],
+    });
+    const clearDB = clearGet(productByTag);
+    const selectedColors = clearDB.filter((elem) =>
+      elem.sizes.includes(product)
+    );
+    return selectedColors;
   }
   const productByName = await Product.findAll({
     where: {

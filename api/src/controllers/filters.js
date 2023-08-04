@@ -104,11 +104,36 @@ const filterByScore = async () => {
 };
 
 const filteredByCategoryAndName = async (category, name) => {
-  if (category === "deporte") {
-    const productsSports = await Product.findAll({
+    if (category === "deporte") {
+      const productsSports = await Product.findAll({
+        where: {
+          [Op.and]: [
+            { stock: { [Op.iLike]: `%${category}%` } },
+            { name: { [Op.iLike]: `%${name}%` } },
+          ],
+        },
+        include: [
+          {
+            model: Tag,
+            attributes: ["name"],
+          },
+          {
+            model: Size,
+            attributes: ["size"],
+          },
+          {
+            model: Color,
+            attributes: ["name"],
+          },
+        ],
+      });
+      const clearProduct = clearGet(productsSports);
+      return clearProduct;
+    }
+    const products = await Product.findAll({
       where: {
         [Op.and]: [
-          { stock: { [Op.iLike]: `%${category}%` } },
+          { category: { [Op.iLike]: `%${category}%` } },
           { name: { [Op.iLike]: `%${name}%` } },
         ],
       },
@@ -127,34 +152,31 @@ const filteredByCategoryAndName = async (category, name) => {
         },
       ],
     });
-    const clearProduct = clearGet(productsSports);
-    return clearProduct;
-  }
-  const products = await Product.findAll({
-    where: {
-      [Op.and]: [
-        { category: { [Op.iLike]: `%${category}%` } },
-        { name: { [Op.iLike]: `%${name}%` } },
+    const productsClear = clearGet(products);
+    return productsClear;
+  },
+  getLeakedInformation = async (size, color, sport, category, genre) => {
+    const products = await Product.findAll({
+      where: {
+        [Op.or]: [{ genre: genre }, { category: category }],
+      },
+      include: [
+        {
+          model: Tag,
+          attributes: ["name"],
+        },
+        {
+          model: Size,
+          attributes: ["size"],
+        },
+        {
+          model: Color,
+          attributes: ["name"],
+        },
       ],
-    },
-    include: [
-      {
-        model: Tag,
-        attributes: ["name"],
-      },
-      {
-        model: Size,
-        attributes: ["size"],
-      },
-      {
-        model: Color,
-        attributes: ["name"],
-      },
-    ],
-  });
-  const productsClear = clearGet(products);
-  return productsClear;
-};
+    });
+    return products;
+  };
 
 const filterAccessories = async (category, q) => {
   if (category === "deporte") {
@@ -211,5 +233,6 @@ module.exports = {
   filterByCategory,
   filterByScore,
   filteredByCategoryAndName,
+  getLeakedInformation,
   filterAccessories,
 };
