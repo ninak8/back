@@ -15,16 +15,17 @@ router.get("/:category", async (req, res) => {
   try {
     let result;
     if (
-      q === "futbol" ||
-      q === "voley" ||
-      q === "basquet" ||
+      q === "fútbol" ||
+      q === "vóley" ||
+      q === "básquet" ||
       q === "rugby" ||
-      q === "padel" ||
+      q === "pádel" ||
       q === "tenis" ||
-      q === "hokey" ||
-      q === "boca" ||
-      q === "river" ||
-      q === "seleccion"
+      q === "hockey" ||
+      q === "Boca Juniors" ||
+      q === "River Plate" ||
+      q === "Selección ARG" ||
+      q === "natación"
     ) {
       result = await filterAccessories(category, q);
     } else if (category && q) {

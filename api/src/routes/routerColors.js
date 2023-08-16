@@ -2,9 +2,10 @@ const { Router } = require("express");
 const router = Router();
 const {
   createColor,
-  getProductByColor,
-  deleteColor,
   getAllColors,
+  getProductByColor,
+  changeColors,
+  deleteColor,
 } = require("../controllers/colors");
 
 router.post("/", async (req, res) => {
@@ -25,6 +26,16 @@ router.get("/", async (req, res) => {
     else colors = await getProductByColor(color);
     if (!colors.length) res.status(400).send("color not found");
     else res.status(200).json(colors);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.patch("/", async (req, res) => {
+  const { id, name } = req.body;
+  try {
+    const patchColor = await changeColors(id, name);
+    return res.status(200).json(patchColor);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

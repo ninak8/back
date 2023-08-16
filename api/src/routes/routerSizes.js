@@ -1,6 +1,11 @@
 const { Router } = require("express");
 const router = Router();
-const { createSize, getAllSize, deleteSize } = require("../controllers/size");
+const {
+  createSize,
+  getAllSize,
+  deleteSize,
+  changeSize,
+} = require("../controllers/size");
 
 //? POST GET DELETE
 router.post("/", async (req, res) => {
@@ -18,6 +23,16 @@ router.get("/", async (req, res) => {
     const sizes = await getAllSize();
     if (!sizes.length) res.status(400).send("sizes not found");
     else res.status(200).json(sizes);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.patch("/", async (req, res) => {
+  const { id, size } = req.body;
+  try {
+    const patchSize = await changeSize(id, size);
+    return res.status(200).json(patchSize);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

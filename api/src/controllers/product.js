@@ -97,16 +97,17 @@ const getProductById = async (id) => {
 
 const getProductByName = async (product) => {
   if (
-    product === "futbol" ||
-    product === "voley" ||
-    product === "basquet" ||
+    product === "fútbol" ||
+    product === "vóley" ||
+    product === "básquet" ||
     product === "rugby" ||
-    product === "padel" ||
+    product === "pádel" ||
     product === "tenis" ||
-    product === "hokey" ||
-    product === "boca" ||
-    product === "river" ||
-    product === "seleccion"
+    product === "hockey" ||
+    product === "Boca Juniors" ||
+    product === "River Plate" ||
+    product === "Selección ARG" ||
+    product === "natación"
   ) {
     const productByTag = await Product.findAll({
       include: [
