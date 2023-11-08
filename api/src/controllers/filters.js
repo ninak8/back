@@ -129,7 +129,7 @@ const filteredByCategoryAndName = async (category, name) => {
       });
       const clearProduct = clearGet(productsSports);
       return clearProduct;
-    }
+    }else{
     const products = await Product.findAll({
       where: {
         [Op.and]: [
@@ -154,6 +154,7 @@ const filteredByCategoryAndName = async (category, name) => {
     });
     const productsClear = clearGet(products);
     return productsClear;
+    }
   },
   getLeakedInformation = async (size, color, sport, category, genre) => {
     const products = await Product.findAll({
