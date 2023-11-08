@@ -134,7 +134,7 @@ const filteredByCategoryAndName = async (category, name) => {
       where: {
         [Op.and]: [
           { category: { [Op.iLike]: `%${category}%` } },
-          { name: { [Op.iLike]: `%${name}` } },
+          { name: { [Op.iLike]: `%${name}%` } },
         ],
       },
       include: [
