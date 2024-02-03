@@ -109,11 +109,7 @@ router.patch("/", async (req, res) => {
       genre,
       //
       image
-      // sizes,
-      // tags,
-      // colors
     );
-    // addTemperaments(temperament)
     result.addSizes(sizes);
     result.addTags(tags); //array de IDs
     result.addColors(colors);

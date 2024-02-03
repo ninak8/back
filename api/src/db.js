@@ -38,7 +38,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Color, Product, Tag, Size, Faqs, Imgs, User } = sequelize.models;
+const { Color, Product, Tag, Size, Faqs, Imgs, User, Order, Client } =
+  sequelize.models;
 
 Product.belongsToMany(Tag, { through: "Products_Tags" });
 Tag.belongsToMany(Product, { through: "Products_Tags" });
@@ -48,6 +49,9 @@ Size.belongsToMany(Product, { through: "Products_Sizes" });
 
 Product.belongsToMany(Color, { through: "Products_Colors" });
 Color.belongsToMany(Product, { through: "Products_Colors" });
+
+Order.hasOne(Client);
+Client.belongsTo(Order);
 
 module.exports = {
   ...sequelize.models,

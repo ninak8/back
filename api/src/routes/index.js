@@ -8,6 +8,8 @@ const routerFilters = require("./routerFilters");
 const routerFaqs = require("./routerFaqs");
 const routerImages = require("./routerImages");
 const routerUser = require("./routerUser");
+const routerClient = require("./routerClients");
+const routerOrder = require("./routerOrders");
 
 const processImage = require("../utils/processIMG");
 
@@ -26,5 +28,8 @@ router.use("/images", routerImages);
 router.use("/user", routerUser);
 //* Images Processor
 router.use("/processImage/post", processImage);
+// ---new
+router.use("/clients", routerClient);
+router.use("/orders", routerOrder);
 
 module.exports = router;
